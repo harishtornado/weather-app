@@ -1,5 +1,3 @@
-import { useState } from 'react';
-import sunny from '../assets/icons/sunny.png';
 import Info from './Info';
 
 const Temp = ({ data, date, toggleType }) => {

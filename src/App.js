@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Search from "./components/Search";
 import Temp from "./components/Temp";
 import useFetch from "./hook/useFetch";
+import { BounceLoader } from "react-spinners";
 
 const App = () => {
   const [isDay, setIsDay] = useState(false);
@@ -50,7 +51,7 @@ const App = () => {
         <div className="night"></div>
       )}
       {isLoading ? (
-        <div>Loading</div>
+        <BounceLoader color="#ffffff" />
       ) : (
         <>
           <Temp data={weatherData} date={date} toggleType={toggleType} />
