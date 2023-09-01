@@ -31,6 +31,7 @@ const App = () => {
         temp_max: ((9 / 5) * weatherData.temp_max + 32).toFixed(1),
         temp_min: ((9 / 5) * weatherData.temp_min + 32).toFixed(1),
         type: "F",
+        city: cityName
       });
     } else {
       setWeatherData({
@@ -39,6 +40,7 @@ const App = () => {
         temp_max: (((weatherData.temp_max - 32) * 5) / 9).toFixed(1),
         temp_min: (((weatherData.temp_min - 32) * 5) / 9).toFixed(1),
         type: "C",
+        city: cityName
       });
     }
   };
