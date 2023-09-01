@@ -5,7 +5,7 @@ const useFetch = (city) => {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const url = "https://weather-app-backend-jv6p.onrender.com";
+  const url = process.env.REACT_APP_URL || "";
   const fetchData = async () => {
     setIsLoading(true)
     try {
