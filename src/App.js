@@ -1,25 +1,67 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import Search from "./components/Search";
+import Temp from "./components/Temp";
+import useFetch from "./hook/useFetch";
 
-function App() {
+const App = () => {
+  const [isDay, setIsDay] = useState(false);
+  const [cityName, setCityName] = useState("Chennai");
+  const [weatherData, setWeatherData] = useState({});
+  const { data, isLoading, error, refetch } = useFetch(cityName);
+  const date = new Date();
+
+  useEffect(() => {
+    setWeatherData({ ...data, city: cityName, type: "C" });
+  }, [data]);
+
+  useEffect(() => {
+    refetch()
+  },[cityName])
+
+  const UpdateCityName = (city) => {
+    setCityName(city);
+  };
+
+  const toggleType = (type) => {
+    if (type === "C") {
+      setWeatherData({
+        ...data,
+        temp: ((9 / 5) * weatherData.temp + 32).toFixed(1),
+        temp_max: ((9 / 5) * weatherData.temp_max + 32).toFixed(1),
+        temp_min: ((9 / 5) * weatherData.temp_min + 32).toFixed(1),
+        type: "F",
+      });
+    } else {
+      setWeatherData({
+        ...data,
+        temp: (((weatherData.temp - 32) * 5) / 9).toFixed(1),
+        temp_max: (((weatherData.temp_max - 32) * 5) / 9).toFixed(1),
+        temp_min: (((weatherData.temp_min - 32) * 5) / 9).toFixed(1),
+        type: "C",
+      });
+    }
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {isDay ? (
+        <div className="morning"></div>
+      ) : (
+        <div className="night"></div>
+      )}
+      {isLoading ? (
+        <div>Loading</div>
+      ) : (
+        <>
+          <Temp data={weatherData} date={date} toggleType={toggleType} />
+          <Search
+            cityName={cityName}
+            UpdateCityName={UpdateCityName}
+          />
+        </>
+      )}
     </div>
   );
-}
+};
 
 export default App;
