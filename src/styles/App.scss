@@ -120,17 +120,12 @@
     .temperature__description {
         width: 100%;
         @include flex;
-    }
-
-    @media (min-width: 768px){
-        .temperature__description {
-            p{
-                font-size: 1.5rem;
+        p{
+            font-size: 1.5rem;
                 margin: 0.2em 0;
                 padding: 0.2em 2em;
                 border-radius: 0.2em;
                 background: rgba(0,0,0,0.2);
-            }
         }
     }
 }
